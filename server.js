@@ -14,13 +14,17 @@ app.get('/api/products',(req, res, next) => {
     .catch(next)
 })
 
-app.get('/api/products:id',(req, res, next) => {
+app.put('/api/products/:id',(req, res, next) => {
   Product.findById(req.params.id)
     .then( product =>{
+      console.log('---->', req.body)
       Object.assign(product, req.body);
       return product.save();
     })
-    .then(product => res.send(product))
+    .then(product => {
+      console.log(product)
+      res.send(product)
+    })
     .catch(next)
 })
 
